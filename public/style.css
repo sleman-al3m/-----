@@ -1,0 +1,61 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap');
+
+:root{
+  --bg:#080a10; --panel:rgba(19,23,33,.78); --text:#f6f4ef; --muted:#9ba0ae;
+  --line:rgba(255,255,255,.09); --accent:#b9a7ff; --accent2:#8e7cf4;
+}
+*{box-sizing:border-box}
+body{
+  margin:0; min-height:100vh; color:var(--text); font-family:Cairo,system-ui,sans-serif;
+  background:
+    radial-gradient(circle at 50% -10%,rgba(185,167,255,.17),transparent 34rem),
+    radial-gradient(circle at 10% 90%,rgba(94,119,255,.10),transparent 26rem), var(--bg);
+  display:grid; place-items:center; overflow:hidden;
+}
+.noise{position:fixed;inset:0;opacity:.025;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.app{width:min(92vw,560px);position:relative}
+.hero{text-align:center;margin-bottom:24px}
+.orb{width:74px;height:74px;border-radius:50%;margin:0 auto 18px;
+  background:radial-gradient(circle at 35% 30%,#fff,#c9bcff 20%,#8172d7 52%,transparent 70%);
+  filter:drop-shadow(0 0 35px rgba(185,167,255,.28));}
+.eyebrow{font-size:11px;letter-spacing:.25em;color:#888da0}
+h1{font-size:44px;margin:7px 0 0;font-weight:800;letter-spacing:-.04em}
+.subtitle{color:var(--muted);margin:5px 0;font-size:14px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:28px;padding:22px;backdrop-filter:blur(22px);box-shadow:0 25px 80px rgba(0,0,0,.35)}
+.tabs{display:grid;grid-template-columns:1fr 1fr;background:rgba(255,255,255,.04);padding:4px;border-radius:15px;margin-bottom:22px}
+.tab{border:0;background:transparent;color:var(--muted);padding:11px;border-radius:12px;font:600 13px Cairo;cursor:pointer}
+.tab.active{background:rgba(255,255,255,.09);color:#fff}
+label{font-size:12px;color:var(--muted);display:block;margin:0 3px 7px}
+.room-row{display:grid;grid-template-columns:1fr 92px;gap:8px}
+input{width:100%;background:#0d1018;border:1px solid var(--line);border-radius:14px;color:white;padding:13px 14px;outline:none;font:700 14px Cairo;text-transform:uppercase}
+input:focus{border-color:rgba(185,167,255,.55)}
+button{font-family:inherit;cursor:pointer}
+#join{border:0;border-radius:14px;background:#eeeaff;color:#171522;font-weight:800}
+.status{display:flex;align-items:center;gap:9px;color:var(--muted);font-size:12px;margin:19px 2px 12px}
+.dot{width:7px;height:7px;border-radius:50%;background:#5d6371;box-shadow:0 0 0 5px rgba(93,99,113,.08)}
+.online .dot{background:#9fe3bd;box-shadow:0 0 0 5px rgba(159,227,189,.08)}
+.sleep-btn,.alarm-btn,.wake-btn{width:100%;border:0;border-radius:20px;padding:20px;margin-top:5px}
+.sleep-btn{background:linear-gradient(135deg,#c7bbff,#8c7cf0);color:#171322;box-shadow:0 16px 40px rgba(140,124,240,.2)}
+.sleep-btn span{display:block;font-size:18px;font-weight:800}.sleep-btn small,.alarm-btn small{display:block;margin-top:2px;opacity:.7;font-size:11px}
+.wake-btn{background:rgba(255,255,255,.08);color:white;border:1px solid var(--line)}
+.alarm-btn{background:linear-gradient(135deg,#fff,#d9d4ff);color:#15131f;min-height:116px;transition:.2s}
+.alarm-btn:disabled{opacity:.35;cursor:not-allowed}
+.alarm-btn:not(:disabled):hover{transform:translateY(-2px);box-shadow:0 15px 35px rgba(185,167,255,.18)}
+.alarm-icon{font-size:22px;display:block}
+.hint{text-align:center;color:#6e7381;font-size:10px;margin:17px 0 0}
+.hidden{display:none!important}
+
+.alarm-overlay{position:fixed;inset:0;background:#09090b;display:grid;place-items:center;z-index:20}
+.alarm-inner{text-align:center;position:relative}
+.alarm-kicker{font-weight:800;letter-spacing:.35em;font-size:12px}
+.alarm-inner h2{font-size:76px;margin:8px 0;letter-spacing:-.08em}
+.alarm-inner p{color:#aaa}
+.alarm-inner button{margin-top:20px;border:0;border-radius:16px;padding:14px 34px;font-weight:800;background:white;color:#111}
+.pulse{position:absolute;width:270px;height:270px;border:1px solid rgba(255,255,255,.18);border-radius:50%;left:50%;top:50%;transform:translate(-50%,-50%);animation:pulse 1s infinite}
+@keyframes pulse{0%{width:150px;height:150px;opacity:.9}100%{width:520px;height:520px;opacity:0}}
+@media(max-width:520px){h1{font-size:38px}.card{padding:18px}.alarm-inner h2{font-size:58px}}
+body.alarming{animation:shake .12s infinite}
+@keyframes shake{0%{transform:translate(0)}25%{transform:translate(2px,-1px)}50%{transform:translate(-2px,1px)}75%{transform:translate(1px,2px)}100%{transform:translate(-1px,-2px)}}
+.voice-panel{margin-top:14px;padding:14px;border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.035)}
+.voice-title{font-weight:800;margin-bottom:4px}.voice-panel #micStatus{font-size:11px;color:var(--muted);margin-bottom:10px}
+#prepareMic{border:1px solid var(--line);background:rgba(255,255,255,.08);color:#fff;border-radius:12px;padding:9px 14px;font-size:11px}
